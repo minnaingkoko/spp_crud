@@ -38,24 +38,7 @@ const Employee = require('../model/employee');
 
 exports.searchEmployee = async (req, res) => {
     try {
-        let all_datas;
-        if (req.body.multiple) {
-            all_datas = Employee.find(req.body.query)
-                .then((results) => {
-                    console.log(results);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        } else {
-            all_datas = Employee.findOne(req.body.query)
-                .then((result) => {
-                    console.log(result);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
+        let all_datas = await Employee.find(req.body);
         res.json(all_datas);
     } catch (error) {
         console.error(error);

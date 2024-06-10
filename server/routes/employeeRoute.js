@@ -2,7 +2,7 @@ const router = require('express').Router()
 const EmployeeController = require('../controller/EmployeeController');
 
 // employees routes
-// route.post('/api/searchEmployee', EmployeeController.searchEmployee);
+router.post('/api/searchEmployee', EmployeeController.searchEmployee);
 router.get('/api/employeeInfo', EmployeeController.employeeInfo);
 router.post('/api/employeeUpload', EmployeeController.employeeUpload)
 router.post('/api/employeeModify', EmployeeController.employeeModify);
