@@ -39,7 +39,7 @@ const Employee = require('../model/employee');
 exports.searchEmployee = async (req, res) => {
     try {
         let all_datas = await Employee.find(req.body);
-        res.json(all_datas);
+        res.status(200).json(all_datas);
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
