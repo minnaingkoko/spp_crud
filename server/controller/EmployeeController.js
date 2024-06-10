@@ -379,29 +379,29 @@ exports.employeeModifyRequest = async (req, res) => {
 exports.employeeDelete = async (req, res) => {
     try {
         const { idNo } = req.body;
-        const all_datas = await Employee.findById({ _id: idNo });
+        // const all_datas = await Employee.findById({ _id: idNo });
         // console.log(all_datas.demandLetterScanData.filename);
-        const bucketName = 'shanpyaephyo';
+        // const bucketName = 'shanpyaephyo';
 
-        const passportObjectKey = `passport/${all_datas.passportScanData.filename}`
-        const nrcObjectKey = `nrc/${all_datas.nrcScanData.filename}`
-        const vaccineNotaryObjectKey = `vaccineNotary/${all_datas.vaccineNotaryScanData.filename}`
-        const medicalOnlineObjectKey = `medicalOnline/${all_datas.medicalOnlineScanData.filename}`
-        const trainingObjectKey = `training/${all_datas.trainingScanData.filename}`
-        const airTicketObjectKey = `airTicket/${all_datas.airTicketScanData.filename}`
-        const visaObjectKey = `visa/${all_datas.visaScanData.filename}`
-        const smartCardObjectKey = `smartCard/${all_datas.smartCardScanData.filename}`
-        const familyDataObjectKey = `familyData/${all_datas.familyDataScanData.filename}`
+        // const passportObjectKey = `passport/${all_datas.passportScanData.filename}`
+        // const nrcObjectKey = `nrc/${all_datas.nrcScanData.filename}`
+        // const vaccineNotaryObjectKey = `vaccineNotary/${all_datas.vaccineNotaryScanData.filename}`
+        // const medicalOnlineObjectKey = `medicalOnline/${all_datas.medicalOnlineScanData.filename}`
+        // const trainingObjectKey = `training/${all_datas.trainingScanData.filename}`
+        // const airTicketObjectKey = `airTicket/${all_datas.airTicketScanData.filename}`
+        // const visaObjectKey = `visa/${all_datas.visaScanData.filename}`
+        // const smartCardObjectKey = `smartCard/${all_datas.smartCardScanData.filename}`
+        // const familyDataObjectKey = `familyData/${all_datas.familyDataScanData.filename}`
 
-        s3Delete(bucketName, passportObjectKey);
-        s3Delete(bucketName, nrcObjectKey);
-        s3Delete(bucketName, vaccineNotaryObjectKey);
-        s3Delete(bucketName, medicalOnlineObjectKey);
-        s3Delete(bucketName, trainingObjectKey);
-        s3Delete(bucketName, airTicketObjectKey);
-        s3Delete(bucketName, visaObjectKey);
-        s3Delete(bucketName, smartCardObjectKey);
-        s3Delete(bucketName, familyDataObjectKey);
+        // s3Delete(bucketName, passportObjectKey);
+        // s3Delete(bucketName, nrcObjectKey);
+        // s3Delete(bucketName, vaccineNotaryObjectKey);
+        // s3Delete(bucketName, medicalOnlineObjectKey);
+        // s3Delete(bucketName, trainingObjectKey);
+        // s3Delete(bucketName, airTicketObjectKey);
+        // s3Delete(bucketName, visaObjectKey);
+        // s3Delete(bucketName, smartCardObjectKey);
+        // s3Delete(bucketName, familyDataObjectKey);
 
         await Employee.deleteOne({ _id: idNo });
         res.sendStatus(200);

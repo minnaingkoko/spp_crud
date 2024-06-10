@@ -5,9 +5,9 @@ const EmployeeController = require('../controller/EmployeeController');
 // route.post('/api/searchEmployee', EmployeeController.searchEmployee);
 router.get('/api/employeeInfo', EmployeeController.employeeInfo);
 router.post('/api/employeeUpload', EmployeeController.employeeUpload)
-// route.post('/api/employeeModify', EmployeeController.employeeModify);
-// route.put('/api/employeeModifyRequest', EmployeeController.employeeModifyRequest);
-// route.delete('/api/employeeDelete', EmployeeController.employeeDelete);
+router.post('/api/employeeModify', EmployeeController.employeeModify);
+router.put('/api/employeeModifyRequest', EmployeeController.employeeModifyRequest);
+router.delete('/api/employeeDelete', EmployeeController.employeeDelete);
 // route.post('/api/employeeSingleInfo', EmployeeController.employeeSingleInfo);
 
 // companies routes
