@@ -3,7 +3,7 @@ const EmployeeController = require('../controller/EmployeeController');
 
 // employees routes
 // route.post('/api/searchEmployee', EmployeeController.searchEmployee);
-// route.get('/api/employeeInfo', EmployeeController.employeeInfo);
+router.get('/api/employeeInfo', EmployeeController.employeeInfo);
 router.post('/api/employeeUpload', EmployeeController.employeeUpload)
 // route.post('/api/employeeModify', EmployeeController.employeeModify);
 // route.put('/api/employeeModifyRequest', EmployeeController.employeeModifyRequest);

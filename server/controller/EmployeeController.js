@@ -77,7 +77,7 @@ exports.employeeInfo = async (req, res) => {
 exports.employeeUpload = async (req, res, next) => {
     // let { name, motherName, fatherName, address, phNo, nrcNo, religion, gender, passport, dob, dobString, dobUpdate, age, weight, height, marital, education, experience, workedCountry, spokenLanguage, agent, deposit, applyDate, passportExpireDate, passportType, medicalOnlineExpire, airPlaneNo, departureDate, smartCardNo, passportScan, nrcScan, vaccineNotaryScan, medicalOnlineScan, trainingScan, airTicketScan, visaScan, smartCardScan, familyDataScan } = req.body;
 
-    let { name, passportNo, passportType, motherName, fatherName } = req.body;
+    let { name, passportNo, passportType, fatherName, motherName } = req.body;
 
     // const bucketName = 'shanpyaephyo';
 
@@ -329,7 +329,7 @@ exports.employeeUpload = async (req, res, next) => {
 
     // const newEmployee = new Employee({ name, motherName, fatherName, address, phNo, nrcNo, religion, gender, passport, dob, dobString, dobUpdate, age, weight, height, marital, education, experience, workedCountry, spokenLanguage, agent, passportScanData, nrcScanData, vaccineNotaryScanData, medicalOnlineScanData, trainingScanData, airTicketScanData, visaScanData, smartCardScanData, familyDataScanData, deposit, applyDate, passportExpireDate, passportType, medicalOnlineExpire, smartCardNo, airPlaneNo, departureDate });
 
-    const newEmployee = new Employee({ name, passportNo, passportType, motherName, fatherName });
+    const newEmployee = new Employee({ name, passportNo, passportType, fatherName, motherName });
 
     await newEmployee
         .save()
