@@ -4,15 +4,26 @@ const employeeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   passportNo: { type: String, unique: true, required: true },
   passportType: { type: String, required: true },
-  fatherName: { type: String },
-  motherName: { type: String },
+  gender: { type: String, required: true },
+  dob: { type: String, required: true },
+  age: { type: Number, required: true },
+  ppIssueDate: { type: String, required: true },
+  ppExpireDate: { type: String, required: true },
+  pob: { type: String, required: true },
+  authority: { type: String, required: true },
+
+  // fatherName: { type: String },
+  // motherName: { type: String },
   // address: { type: String },
-  // phNo: { type: String },
   // nrcNo: { type: String, unique: true },
-  // religion: { type: String },
+  // phNo: { type: String },
   // agent: { type: String },
-  // gender: { type: String },
-  // dob: { type: Date },
+  // deposit: { type: String },
+  // airPlaneNo: { type: String },
+  // departureDate: { type: String },
+  
+  // religion: { type: String },
+  
   // dobString: { type: String },
   // dobUpdate: { type: String },
   // age: { type: Number },
@@ -23,13 +34,12 @@ const employeeSchema = new mongoose.Schema({
   // experience: { type: String },
   // workedCountry: { type: String },
   // spokenLanguage: { type: String },
-  // deposit: { type: String },
+  
   // applyDate: { type: String },
   // passportExpireDate: { type: String },
   // medicalOnlineExpire: { type: String },
   // smartCardNo: { type: String },
-  // airPlaneNo: { type: String },
-  // departureDate: { type: String },
+  
   // vaccineData: {
   //   dose : {
   //     type: String, requried: true
