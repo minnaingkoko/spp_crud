@@ -47,13 +47,33 @@ exports.employeeUpload = async (req, res, next) => {
 
     // format DOB String
 
-    let date = new Date(dob);
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    day = (day < 10 ? "0" : "") + day;
-    month = (month < 10 ? "0" : "") + month;
-    dob = day + "." + month + "." + year;
+    let dateDOB = new Date(dob);
+    let dayDOB = dateDOB.getDate();
+    let monthDOB = dateDOB.getMonth() + 1;
+    let yearDOB = dateDOB.getFullYear();
+    dayDOB = (dayDOB < 10 ? "0" : "") + dayDOB;
+    monthDOB = (monthDOB < 10 ? "0" : "") + monthDOB;
+    dob = dayDOB + "." + monthDOB + "." + yearDOB;
+
+    // format ID String
+
+    let dateID = new Date(ppIssueDate);
+    let dayID = dateID.getDate();
+    let monthID = dateID.getMonth() + 1;
+    let yearID = dateID.getFullYear();
+    dayID = (dayID < 10 ? "0" : "") + dayID;
+    monthID = (monthID < 10 ? "0" : "") + monthID;
+    ppIssueDate = dayID + "." + monthID + "." + yearID;
+
+    // format ED String
+
+    let dateED = new Date(ppExpireDate);
+    let dayED = dateED.getDate();
+    let monthED = dateED.getMonth() + 1;
+    let yearED = dateED.getFullYear();
+    dayED = (dayED < 10 ? "0" : "") + dayED;
+    monthED = (monthED < 10 ? "0" : "") + monthED;
+    ppExpireDate = dayED + "." + monthED + "." + yearED;
 
     const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, age, ppIssueDate, ppExpireDate, pob, authority });
 
