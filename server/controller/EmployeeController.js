@@ -23,79 +23,84 @@ exports.employeeInfo = async (req, res) => {
 
 exports.employeeUpload = async (req, res, next) => {
 
-    let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority } = req.body;
-    
-    // let anotherDate = new Date(dob);
+    try {
+        let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority } = req.body;
+        
+        // let anotherDate = new Date(dob);
 
-    // format DOB
-    // const anotherYear = anotherDate.getFullYear();
-    // const anotherMonth = (anotherDate.getMonth() + 1).toString().padStart(2, '0');
-    // const anotherDay = anotherDate.getDate().toString().padStart(2, '0');
-    // dobUpdate = anotherYear + "-" + anotherMonth + "-" + anotherDay;
+        // format DOB
+        // const anotherYear = anotherDate.getFullYear();
+        // const anotherMonth = (anotherDate.getMonth() + 1).toString().padStart(2, '0');
+        // const anotherDay = anotherDate.getDate().toString().padStart(2, '0');
+        // dobUpdate = anotherYear + "-" + anotherMonth + "-" + anotherDay;
 
-    // age calculate
-    let today = new Date();
-    let newDate = new Date(dob);
-    let calAge = today.getFullYear() - newDate.getFullYear();
-    let monthDiff = today.getMonth() - newDate.getMonth();
+        // age calculate
+        let today = new Date();
+        let newDate = new Date(dob);
+        let calAge = today.getFullYear() - newDate.getFullYear();
+        let monthDiff = today.getMonth() - newDate.getMonth();
 
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < newDate.getDate())) {
-        calAge--;
-    }
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < newDate.getDate())) {
+            calAge--;
+        }
 
-    let age = calAge;
+        let age = calAge;
 
-    // format DOB String
+        // format DOB String
 
-    let dateDOB = new Date(dob);
-    let dayDOB = dateDOB.getDate();
-    let monthDOB = dateDOB.getMonth() + 1;
-    let yearDOB = dateDOB.getFullYear();
-    dayDOB = (dayDOB < 10 ? "0" : "") + dayDOB;
-    monthDOB = (monthDOB < 10 ? "0" : "") + monthDOB;
-    dobString = dayDOB + "." + monthDOB + "." + yearDOB;
+        let dateDOB = new Date(dob);
+        let dayDOB = dateDOB.getDate();
+        let monthDOB = dateDOB.getMonth() + 1;
+        let yearDOB = dateDOB.getFullYear();
+        dayDOB = (dayDOB < 10 ? "0" : "") + dayDOB;
+        monthDOB = (monthDOB < 10 ? "0" : "") + monthDOB;
+        dobString = dayDOB + "." + monthDOB + "." + yearDOB;
 
-    // format ID String
+        // format ID String
 
-    let dateID = new Date(ppIssueDate);
-    let dayID = dateID.getDate();
-    let monthID = dateID.getMonth() + 1;
-    let yearID = dateID.getFullYear();
-    dayID = (dayID < 10 ? "0" : "") + dayID;
-    monthID = (monthID < 10 ? "0" : "") + monthID;
-    ppIssueDateString = dayID + "." + monthID + "." + yearID;
+        let dateID = new Date(ppIssueDate);
+        let dayID = dateID.getDate();
+        let monthID = dateID.getMonth() + 1;
+        let yearID = dateID.getFullYear();
+        dayID = (dayID < 10 ? "0" : "") + dayID;
+        monthID = (monthID < 10 ? "0" : "") + monthID;
+        ppIssueDateString = dayID + "." + monthID + "." + yearID;
 
-    // format ED String
+        // format ED String
 
-    let dateED = new Date(ppExpireDate);
-    let dayED = dateED.getDate();
-    let monthED = dateED.getMonth() + 1;
-    let yearED = dateED.getFullYear();
-    dayED = (dayED < 10 ? "0" : "") + dayED;
-    monthED = (monthED < 10 ? "0" : "") + monthED;
-    ppExpireDateString = dayED + "." + monthED + "." + yearED;
+        let dateED = new Date(ppExpireDate);
+        let dayED = dateED.getDate();
+        let monthED = dateED.getMonth() + 1;
+        let yearED = dateED.getFullYear();
+        dayED = (dayED < 10 ? "0" : "") + dayED;
+        monthED = (monthED < 10 ? "0" : "") + monthED;
+        ppExpireDateString = dayED + "." + monthED + "." + yearED;
 
-    const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, dobString, age, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority });
+        const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, dobString, age, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority });
 
-    await newEmployee
-        .save()
-        .then(() => {
-            res.sendStatus(200);
-        })
-        .catch(error => {
-            if (error.code === 11000) {
-                // Duplicate key error
-                res.status(400).json({
-                    message: 'Passport number already exists. Please use a different passport number.'
-                });
-            } else {
-                // Other errors
-                res.status(500).json({
-                    message: 'An error occurred while creating the employee',
-                    error: error.message
-                });
-            }
-        })
+        await newEmployee
+            .save()
+            .then(() => {
+                res.sendStatus(200);
+            })
+            .catch(error => {
+                if (error.code === 11000) {
+                    // Duplicate key error
+                    res.status(400).json({
+                        message: 'Passport number already exists. Please use a different passport number.'
+                    });
+                } else {
+                    // Other errors
+                    res.status(500).json({
+                        message: 'An error occurred while creating the employee',
+                        error: error.message
+                    });
+                }
+            })
+        } catch (error) {
+            console.error(error);
+            res.sendStatus(500);
+        }
 }
 
 exports.employeeModify = async (req, res) => {
@@ -142,7 +147,7 @@ exports.employeeModifyRequest = async (req, res) => {
         dayED = (dayED < 10 ? "0" : "") + dayED;
         monthED = (monthED < 10 ? "0" : "") + monthED;
         data.ppExpireDateString = dayED + "." + monthED + "." + yearED;
-        
+
         const all_datas = await Employee.findById({ _id: data._id });
         Object.assign(all_datas, data);
         const updatedEmployee = await all_datas.save();
