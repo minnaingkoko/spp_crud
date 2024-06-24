@@ -23,7 +23,7 @@ exports.employeeInfo = async (req, res) => {
 
 exports.employeeUpload = async (req, res, next) => {
 
-    let { name, passportNo, passportType, gender, dob, ppIssueDate, ppExpireDate, pob, authority } = req.body;
+    let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority } = req.body;
     
     // let anotherDate = new Date(dob);
 
@@ -53,7 +53,7 @@ exports.employeeUpload = async (req, res, next) => {
     let yearDOB = dateDOB.getFullYear();
     dayDOB = (dayDOB < 10 ? "0" : "") + dayDOB;
     monthDOB = (monthDOB < 10 ? "0" : "") + monthDOB;
-    dob = dayDOB + "." + monthDOB + "." + yearDOB;
+    dobString = dayDOB + "." + monthDOB + "." + yearDOB;
 
     // format ID String
 
@@ -63,7 +63,7 @@ exports.employeeUpload = async (req, res, next) => {
     let yearID = dateID.getFullYear();
     dayID = (dayID < 10 ? "0" : "") + dayID;
     monthID = (monthID < 10 ? "0" : "") + monthID;
-    ppIssueDate = dayID + "." + monthID + "." + yearID;
+    ppIssueDateString = dayID + "." + monthID + "." + yearID;
 
     // format ED String
 
@@ -73,9 +73,9 @@ exports.employeeUpload = async (req, res, next) => {
     let yearED = dateED.getFullYear();
     dayED = (dayED < 10 ? "0" : "") + dayED;
     monthED = (monthED < 10 ? "0" : "") + monthED;
-    ppExpireDate = dayED + "." + monthED + "." + yearED;
+    ppExpireDateString = dayED + "." + monthED + "." + yearED;
 
-    const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, age, ppIssueDate, ppExpireDate, pob, authority });
+    const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, dobString, age, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority });
 
     await newEmployee
         .save()
@@ -101,6 +101,7 @@ exports.employeeUpload = async (req, res, next) => {
 exports.employeeModify = async (req, res) => {
     try {
         const { idNo } = req.body;
+
         const all_datas = await Employee.findById({ _id: idNo });
         res.json(all_datas);
     } catch (error) {
@@ -112,6 +113,36 @@ exports.employeeModify = async (req, res) => {
 exports.employeeModifyRequest = async (req, res) => {
     try {
         const data = req.body;
+        // format DOB String
+
+        let dateDOB = new Date(data.dob);
+        let dayDOB = dateDOB.getDate();
+        let monthDOB = dateDOB.getMonth() + 1;
+        let yearDOB = dateDOB.getFullYear();
+        dayDOB = (dayDOB < 10 ? "0" : "") + dayDOB;
+        monthDOB = (monthDOB < 10 ? "0" : "") + monthDOB;
+        data.dobString = dayDOB + "." + monthDOB + "." + yearDOB;
+
+        // format ID String
+
+        let dateID = new Date(data.ppIssueDate);
+        let dayID = dateID.getDate();
+        let monthID = dateID.getMonth() + 1;
+        let yearID = dateID.getFullYear();
+        dayID = (dayID < 10 ? "0" : "") + dayID;
+        monthID = (monthID < 10 ? "0" : "") + monthID;
+        data.ppIssueDateString = dayID + "." + monthID + "." + yearID;
+
+        // format ED String
+
+        let dateED = new Date(data.ppExpireDate);
+        let dayED = dateED.getDate();
+        let monthED = dateED.getMonth() + 1;
+        let yearED = dateED.getFullYear();
+        dayED = (dayED < 10 ? "0" : "") + dayED;
+        monthED = (monthED < 10 ? "0" : "") + monthED;
+        data.ppExpireDateString = dayED + "." + monthED + "." + yearED;
+        
         const all_datas = await Employee.findById({ _id: data._id });
         Object.assign(all_datas, data);
         const updatedEmployee = await all_datas.save();
