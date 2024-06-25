@@ -24,7 +24,7 @@ exports.employeeInfo = async (req, res) => {
 exports.employeeUpload = async (req, res, next) => {
 
     try {
-        let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority } = req.body;
+        let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority, fatherName, motherName, address, nrcNo, phNo, agent, companyName, airPlaneNo, departureDate, departureDateString } = req.body;
         
         // let anotherDate = new Date(dob);
 
@@ -76,7 +76,17 @@ exports.employeeUpload = async (req, res, next) => {
         monthED = (monthED < 10 ? "0" : "") + monthED;
         ppExpireDateString = dayED + "." + monthED + "." + yearED;
 
-        const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, dobString, age, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority });
+        // format DD String
+
+        let dateDD = new Date(departureDate);
+        let dayDD = dateDD.getDate();
+        let monthDD = dateDD.getMonth() + 1;
+        let yearDD = dateDD.getFullYear();
+        dayDD = (dayDD < 10 ? "0" : "") + dayDD;
+        monthDD = (monthDD < 10 ? "0" : "") + monthDD;
+        departureDateString = dayDD + "." + monthDD + "." + yearDD;
+
+        const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, dobString, age, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority, fatherName, motherName, address, nrcNo, phNo, agent, companyName, airPlaneNo, departureDate, departureDateString });
 
         await newEmployee
             .save()
@@ -147,6 +157,16 @@ exports.employeeModifyRequest = async (req, res) => {
         dayED = (dayED < 10 ? "0" : "") + dayED;
         monthED = (monthED < 10 ? "0" : "") + monthED;
         data.ppExpireDateString = dayED + "." + monthED + "." + yearED;
+
+        // format DD String
+
+        let dateDD = new Date(data.departureDate);
+        let dayDD = dateDD.getDate();
+        let monthDD = dateDD.getMonth() + 1;
+        let yearDD = dateDD.getFullYear();
+        dayDD = (dayDD < 10 ? "0" : "") + dayDD;
+        monthDD = (monthDD < 10 ? "0" : "") + monthDD;
+        data.departureDateString = dayDD + "." + monthDD + "." + yearDD;
 
         const all_datas = await Employee.findById({ _id: data._id });
         Object.assign(all_datas, data);
