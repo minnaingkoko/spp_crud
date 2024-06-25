@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const EmployeeController = require('../controller/EmployeeController');
+const EmployeeController = require('../controller/EmployeeController.js');
 
 // employees routes
 router.post('/api/searchEmployee', EmployeeController.searchEmployee);
