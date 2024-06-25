@@ -13,4 +13,5 @@ require('./server/database/database')();
 // calling routes
 app.use('/', require('./server/routes/employeeRoute'));
 
-app.listen(3000, () => console.log(`Server is stated on http://localhost:3000`));
+app.listen(process.env.PORT || 3000, 
+	() => console.log("Server is running..."));
