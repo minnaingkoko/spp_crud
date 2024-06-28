@@ -15,8 +15,24 @@ exports.searchEmployee = async (req, res) => {
 //employee controllers
 exports.employeeInfo = async (req, res) => {
     try {
-        const all_datas = await Employee.find();
-        res.json(all_datas);
+        const page = parseInt(req.query.page) || 1; // Current page number
+         const limit = parseInt(req.query.limit) || 10; // Number of items per page
+
+         // Calculate the start and end index of the items for the current page
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const workers = await Employee.find();
+        const paginatedWorkers = workers.slice(startIndex, endIndex);
+
+        res.json({
+            totalItems: workers.length,
+            totalPages: Math.ceil(workers.length / limit),
+            currentPage: page,
+            workers: paginatedWorkers,
+          });
+
+        // res.json(all_datas);
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
