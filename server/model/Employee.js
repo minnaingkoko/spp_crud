@@ -16,8 +16,6 @@ const employeeSchema = new mongoose.Schema({
   ppExpireDateString: { type: String, required: true },
   pob: { type: String, required: true },
   authority: { type: String, required: true },
-
-  //More Data
   fatherName: { type: String },
   motherName: { type: String },
   address: { type: String },

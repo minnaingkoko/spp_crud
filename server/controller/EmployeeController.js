@@ -1,3 +1,5 @@
+
+// let it red, it work on local and server
 const Employee = require('../model/Employee.js');
 
 exports.searchEmployee = async (req, res) => {
@@ -25,6 +27,8 @@ exports.employeeUpload = async (req, res, next) => {
 
     try {
         let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority } = req.body;
+
+        console.log(req.body);
         
         // let anotherDate = new Date(dob);
 
