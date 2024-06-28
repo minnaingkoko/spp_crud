@@ -16,144 +16,18 @@ const employeeSchema = new mongoose.Schema({
   ppExpireDateString: { type: String, required: true },
   pob: { type: String, required: true },
   authority: { type: String, required: true },
+
+  //More Data
   fatherName: { type: String },
   motherName: { type: String },
   address: { type: String },
   nrcNo: { type: String, unique: true },
   phNo: { type: String },
   agent: { type: String },
-  deposit: { type: String },
-  company: { type: String },
+  companyName: { type: String },
   airPlaneNo: { type: String },
   departureDate: { type: String },
-  applyDate: { type: String },
-  
-  //Extra Data
-
-  // religion: { type: String },
-  // dobString: { type: String },
-  // dobUpdate: { type: String },
-  // age: { type: Number },
-  // weight: { type: Number },
-  // height: { type: Number },
-  // marital: { type: String },
-  // education: { type: String },
-  // experience: { type: String },
-  // workedCountry: { type: String },
-  // spokenLanguage: { type: String },
-  // passportExpireDate: { type: String },
-  // medicalOnlineExpire: { type: String },
-  // smartCardNo: { type: String },
-  // vaccineData: {
-  //   dose : {
-  //     type: String, requried: true
-  //   },
-  //   vaccineType: {
-  //     type: String, requried: true
-  //   },
-  //   vaccineDate: {
-  //     type: String, requried: true
-  //   }
-  // }, 
-  // passportScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // nrcScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // vaccineNotaryScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // medicalOnlineScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // trainingScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // airTicketScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // visaScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // smartCardScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // },
-  // familyDataScanData: {
-  //   filename: {
-  //     type: String,
-  //   },
-  //   contentType: {
-  //     type: String,
-  //   },
-  //   s3URL: {
-  //     type: String,
-  //   }
-  // }
+  departureDateString: { type: String },
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);
