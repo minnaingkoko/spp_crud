@@ -16,7 +16,7 @@ exports.searchEmployee = async (req, res) => {
 exports.employeeInfo = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1; // Current page number
-         const limit = parseInt(req.query.limit) || 10; // Number of items per page
+         const limit = parseInt(req.query.limit) || 12; // Number of items per page
 
          // Calculate the start and end index of the items for the current page
         const startIndex = (page - 1) * limit;
