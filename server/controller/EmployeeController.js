@@ -16,9 +16,9 @@ exports.searchEmployee = async (req, res) => {
 exports.employeeInfo = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1; // Current page number
-         const limit = parseInt(req.query.limit) || 12; // Number of items per page
+        const limit = parseInt(req.query.limit) || 12; // Number of items per page
 
-         // Calculate the start and end index of the items for the current page
+        // Calculate the start and end index of the items for the current page
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
 
@@ -30,7 +30,7 @@ exports.employeeInfo = async (req, res) => {
             totalPages: Math.ceil(workers.length / limit),
             currentPage: page,
             workers: paginatedWorkers,
-          });
+        });
 
         // res.json(all_datas);
     } catch (error) {
@@ -43,7 +43,7 @@ exports.employeeUpload = async (req, res, next) => {
 
     try {
         let { name, passportNo, passportType, gender, dob, dobString, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority, fatherName, motherName, address, nrcNo, phNo, agent, companyName, airPlaneNo, departureDate, departureDateString } = req.body;
-        
+
         // let anotherDate = new Date(dob);
 
         // format DOB
@@ -106,29 +106,32 @@ exports.employeeUpload = async (req, res, next) => {
 
         const newEmployee = new Employee({ name, passportNo, passportType, gender, dob, dobString, age, ppIssueDate, ppIssueDateString, ppExpireDate, ppExpireDateString, pob, authority, fatherName, motherName, address, nrcNo, phNo, agent, companyName, airPlaneNo, departureDate, departureDateString });
 
-        await newEmployee
-            .save()
-            .then(() => {
-                res.sendStatus(200);
-            })
-            .catch(error => {
-                if (error.code === 11000) {
-                    // Duplicate key error
-                    res.status(400).json({
-                        message: 'Passport number already exists. Please use a different passport number.'
-                    });
-                } else {
-                    // Other errors
-                    res.status(500).json({
-                        message: 'An error occurred while creating the employee',
-                        error: error.message
-                    });
-                }
-            })
-        } catch (error) {
-            console.error(error);
-            res.sendStatus(500);
+        const existingEmployeeByPassport = await Employee.findOne({ passportNo });
+        if (existingEmployeeByPassport) {
+            return res.status(400).json({
+                message: 'Passport number already exists. Please use a different passport number.'
+            });
         }
+
+        // Check for existing employee with the same NRC number
+        const existingEmployeeByNrc = await Employee.findOne({ nrcNo });
+        if (existingEmployeeByNrc) {
+            return res.status(400).json({
+                message: 'NRC number already exists. Please use a different NRC number.'
+            });
+        }
+
+        // Save the new employee if no duplicates are found
+        await newEmployee.save();
+        res.sendStatus(200);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'An error occurred while creating the employee',
+            error: error.message
+        });
+    }
 }
 
 exports.employeeModify = async (req, res) => {
